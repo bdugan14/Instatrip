@@ -2,6 +2,7 @@
 var request = require('request');
 var keys = require('../config.js');
 var prettyJson = require('prettyjson');
+var query = require('querystring');
 
 //module.exports = {
 //37.774950000000004
@@ -12,6 +13,7 @@ var obtainEchoData = function(latLng, index, pusher){
   var lng = latLng.lng;
   request({
       url: 'http://developer.echonest.com/api/v4/song/search', //URL to hit
+      useQuerystring: true,
       qs: {
             api_key: keys.EchoApiKey,
             format: "json",
@@ -21,9 +23,11 @@ var obtainEchoData = function(latLng, index, pusher){
             min_longitude: lng-.4,
             max_longitude: lng+.4,
             sort: "song_hotttnesss-desc",
-            bucket: "artist_location"
+            bucket: ["artist_location"/*"id:spotify","tracks"*/]
             //TODO: make this bucket work without overwriting other bucket
+            // "id:spotify"]
             //bucket: "id:spotify"
+            //"artist_location",
            }, //Query string data
       method: 'GET' //Specify the method
       // headers: { //We can define headers too
