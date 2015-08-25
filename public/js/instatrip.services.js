@@ -199,10 +199,11 @@ angular.module('instatrip.services', [])
         var spaced = [];
         for(var i = 0; i < spacedRoute.length; i++){
           spaced.push({
-            lat: spacedRoute[i].G,
-            lng: spacedRoute[i].K
+            lat: spacedRoute[i].lat(),
+            lng: spacedRoute[i].lng()
           });
         }
+        console.log("spaced: ", spaced);
         currentCoords = spaced;
         ourCallback(tempRoute, spaced).then(function(data, err) {
           $rootScope.$broadcast('updatedPhotos', data);
@@ -235,8 +236,8 @@ angular.module('instatrip.services', [])
           var spaced = [];
           for(var j = 0; j < newPoints.length; j++){
             spaced.push({
-              lat: newPoints[j].G,
-              lng: newPoints[j].K
+              lat: newPoints[j].lat(),
+              lng: newPoints[j].lng()
             });
           }
           ourCallback([], spaced).then(function (data, err) {
